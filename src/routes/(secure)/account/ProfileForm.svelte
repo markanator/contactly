@@ -3,7 +3,7 @@
 	import { Button } from 'flowbite-svelte';
 	import type { SuperValidated } from 'sveltekit-superforms';
 	import type { ProfileSchema } from '$lib/schemas';
-	import { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data: SuperValidated<ProfileSchema>;
 	const { form, errors, enhance } = superForm(data);

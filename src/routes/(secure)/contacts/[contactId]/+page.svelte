@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Card } from 'flowbite-svelte';
 	import type { PageData } from './$types';
-	import { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 
 	export let data: PageData;

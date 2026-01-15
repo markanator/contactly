@@ -2,7 +2,7 @@
 	import type { CreateContactSchema } from '$lib/schemas';
 	import { Button, Modal } from 'flowbite-svelte';
 	import type { SuperValidated } from 'sveltekit-superforms';
-	import { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data: SuperValidated<CreateContactSchema>;
 	export let open = false;

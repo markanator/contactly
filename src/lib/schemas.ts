@@ -57,13 +57,13 @@ export const stripeProductSchema = z.object({
 	name: z.string(),
 	active: z.boolean(),
 	description: z.string(),
-	metadata: z.record(z.string(), z.unknown())
+	metadata: z.record(z.string())
 });
 
 export const stripeCustomerSchema = z.object({
 	id: z.string(),
 	email: z.string().email(),
-	metadata: z.record(z.string(), z.unknown())
+	metadata: z.record(z.string())
 });
 
 // SUBSCRIPTIONS
@@ -102,7 +102,7 @@ export const stripeSubscriptionSchema = z
 		current_period_end: unixTimestampToISOString,
 		trial_start: unixTimestampToISOString.nullable(),
 		trial_end: unixTimestampToISOString.nullable(),
-		metadata: z.record(z.string(), z.unknown())
+		metadata: z.record(z.string())
 	})
 	.transform((obj) => {
 		// take out items and customer

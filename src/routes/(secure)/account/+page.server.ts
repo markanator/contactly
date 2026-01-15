@@ -1,7 +1,6 @@
 import { error, redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { setError, superValidate } from 'sveltekit-superforms';
-import { zod4 as zod } from 'sveltekit-superforms/adapters';
+import { setError, superValidate } from 'sveltekit-superforms/server';
 import { emailSchema, passwordSchema, profileSchema } from '$lib/schemas';
 import { getSubscriptionTier } from '$lib/server/stripe/subscriptions';
 import { handleLoginRedirect } from '$lib/helpers';
@@ -23,13 +22,13 @@ export const load: PageServerLoad = async (event) => {
 		return profile;
 	}
 	return {
-		profileForm: superValidate(await getUserProfile(), zod(profileSchema), {
+		profileForm: superValidate(await getUserProfile(), profileSchema, {
 			id: 'profileForm'
 		}),
-		emailForm: superValidate({ email: session.user.email }, zod(emailSchema), {
+		emailForm: superValidate({ email: session.user.email }, emailSchema, {
 			id: 'emailForm'
 		}),
-		passwordForm: superValidate(zod(passwordSchema), {
+		passwordForm: superValidate(passwordSchema, {
 			id: 'password'
 		}),
 		tier: getSubscriptionTier(session.user.id)
@@ -42,7 +41,7 @@ export const actions: Actions = {
 		if (!session) {
 			throw error(401, 'Unauthorized');
 		}
-		const profileForm = await superValidate(event, zod(profileSchema), {
+		const profileForm = await superValidate(event, profileSchema, {
 			id: 'profileForm'
 		});
 		if (!profileForm.valid) {
@@ -67,7 +66,7 @@ export const actions: Actions = {
 		if (!session) {
 			throw error(401, 'Unauthorized');
 		}
-		const emailForm = await superValidate(event, zod(emailSchema), {
+		const emailForm = await superValidate(event, emailSchema, {
 			id: 'emailForm'
 		});
 		if (!emailForm.valid) {
@@ -91,7 +90,7 @@ export const actions: Actions = {
 		if (!session) {
 			throw error(401, 'Unauthorized');
 		}
-		const passwordForm = await superValidate(event, zod(passwordSchema), {
+		const passwordForm = await superValidate(event, passwordSchema, {
 			id: 'passwordForm'
 		});
 		if (!passwordForm.valid) {

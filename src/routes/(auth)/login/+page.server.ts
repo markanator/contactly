@@ -1,5 +1,4 @@
-import { setError, superValidate } from 'sveltekit-superforms';
-import { zod4 as zod } from 'sveltekit-superforms/adapters';
+import { setError, superValidate } from 'sveltekit-superforms/server';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import { AuthApiError } from '@supabase/supabase-js';
 import type { PageServerLoad } from './$types';
@@ -13,14 +12,14 @@ export const load: PageServerLoad = async (event) => {
 	}
 
 	return {
-		form: superValidate(zod(loginUserSchema))
+		form: superValidate(loginUserSchema)
 	};
 };
 
 export const actions: Actions = {
 	default: async (event) => {
 		const redirectTo = event.url.searchParams.get('redirectTo');
-		const form = await superValidate(event, zod(loginUserSchema));
+		const form = await superValidate(event, loginUserSchema);
 		if (!form.valid) {
 			return fail(400, { form });
 		}

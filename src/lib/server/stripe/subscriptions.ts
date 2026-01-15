@@ -8,7 +8,6 @@ import { supabaseAdmin } from '../supabase-admin';
 import { stripe } from './index';
 import { ENV } from '../env';
 import { getCustomerRecord } from './customers';
-import type { Json } from '$lib/supabase-types';
 
 export async function insertSubscriptionRecord(stripeSubscription: Stripe.Subscription) {
 	const subscription = stripeSubscriptionSchema.parse(stripeSubscription);
@@ -26,8 +25,7 @@ export async function insertSubscriptionRecord(stripeSubscription: Stripe.Subscr
 
 	const { error: subscriptionError } = await supabaseAdmin.from('billing_subscriptions').insert({
 		...subscription,
-		user_id: customer.user_id,
-		metadata: subscription.metadata as Json
+		user_id: customer.user_id
 	});
 
 	if (subscriptionError) {
@@ -40,10 +38,7 @@ export async function updateSubscriptionRecord(stripeSubscription: Stripe.Subscr
 
 	const { error: subscriptionError } = await supabaseAdmin
 		.from('billing_subscriptions')
-		.update({
-			...subscription,
-			metadata: subscription.metadata as Json
-		})
+		.update(subscription)
 		.eq('id', subscription.id);
 
 	if (subscriptionError) {

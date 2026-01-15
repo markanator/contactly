@@ -3,7 +3,7 @@
 	import type { EmailSchema } from '$lib/schemas';
 	import { Button } from 'flowbite-svelte';
 	import type { SuperValidated } from 'sveltekit-superforms';
-	import { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data: SuperValidated<EmailSchema>;
 	const { form, errors, enhance } = superForm(data);

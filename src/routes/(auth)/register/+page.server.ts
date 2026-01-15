@@ -1,5 +1,4 @@
-import { setError, superValidate } from 'sveltekit-superforms';
-import { zod4 as zod } from 'sveltekit-superforms/adapters';
+import { setError, superValidate } from 'sveltekit-superforms/server';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { registerUserSchema } from '$lib/schemas';
@@ -11,13 +10,13 @@ export const load: PageServerLoad = async (event) => {
 		throw redirect(302, handleLoginRedirect(event));
 	}
 	return {
-		form: superValidate(zod(registerUserSchema))
+		form: superValidate(registerUserSchema)
 	};
 };
 
 export const actions: Actions = {
 	default: async (event) => {
-		const form = await superValidate(event, zod(registerUserSchema));
+		const form = await superValidate(event, registerUserSchema);
 		if (!form.valid) {
 			return fail(400, { form });
 		}
