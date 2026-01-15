@@ -2,13 +2,17 @@ import { stripeCustomerSchema } from '$lib/schemas';
 import type Stripe from 'stripe';
 import { supabaseAdmin } from '../supabase-admin';
 import { stripe } from '.';
+import type { Json } from '$lib/supabase-types';
 
 export async function updateCustomerRecord(stripeCustomer: Stripe.Customer) {
 	const customer = stripeCustomerSchema.parse(stripeCustomer);
 
 	const { error } = await supabaseAdmin
 		.from('billing_customers')
-		.update(customer)
+		.update({
+			...customer,
+			metadata: customer.metadata as Json
+		})
 		.eq('id', customer.id);
 
 	if (error) {

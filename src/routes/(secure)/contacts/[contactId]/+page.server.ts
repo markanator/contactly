@@ -1,6 +1,7 @@
 import { error, redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { setError, superValidate } from 'sveltekit-superforms/server';
+import { setError, superValidate } from 'sveltekit-superforms';
+import { zod4 as zod } from 'sveltekit-superforms/adapters';
 import { createContactSchema } from '$lib/schemas';
 import { handleLoginRedirect } from '$lib/helpers';
 
@@ -27,7 +28,7 @@ export const load: PageServerLoad = async (event) => {
 		return contact;
 	}
 	return {
-		updateContactForm: superValidate(await getContact(event.params.contactId), createContactSchema)
+		updateContactForm: superValidate(await getContact(event.params.contactId), zod(createContactSchema))
 	};
 };
 
@@ -38,7 +39,7 @@ export const actions: Actions = {
 			throw error(401, 'Unauthorized');
 		}
 
-		const updateContactForm = await superValidate(event, createContactSchema);
+		const updateContactForm = await superValidate(event, zod(createContactSchema));
 
 		if (!updateContactForm.valid) {
 			return fail(400, {

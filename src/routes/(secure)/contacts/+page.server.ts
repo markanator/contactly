@@ -1,6 +1,7 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { setError, superValidate } from 'sveltekit-superforms/server';
+import { setError, superValidate } from 'sveltekit-superforms';
+import { zod4 as zod } from 'sveltekit-superforms/adapters';
 import { createContactSchema, deleteContactSchema } from '$lib/schemas';
 import { supabaseAdmin } from '$lib/server/supabase-admin';
 import { getSubscriptionTier } from '$lib/server/stripe/subscriptions';
@@ -25,11 +26,11 @@ export const load: PageServerLoad = async (event) => {
 		return contacts;
 	}
 	return {
-		createContactForm: superValidate(createContactSchema, {
+		createContactForm: superValidate(zod(createContactSchema), {
 			id: 'create'
 		}),
 		contacts: getContacts(),
-		deleteContactForm: superValidate(deleteContactSchema, {
+		deleteContactForm: superValidate(zod(deleteContactSchema), {
 			id: 'delete'
 		}),
 		tier: getSubscriptionTier(session.user.id),
@@ -48,7 +49,7 @@ export const actions: Actions = {
 		const [tier, count, createContactForm] = await Promise.all([
 			getSubscriptionTier(session.user.id),
 			getContactsCount(session.user.id),
-			superValidate(event, createContactSchema, {
+			superValidate(event, zod(createContactSchema), {
 				id: 'create'
 			})
 		]);
@@ -86,7 +87,7 @@ export const actions: Actions = {
 			throw error(401, 'Unauthorized');
 		}
 
-		const deleteContactForm = await superValidate(event.url, deleteContactSchema, {
+		const deleteContactForm = await superValidate(event.url, zod(deleteContactSchema), {
 			id: 'delete'
 		});
 

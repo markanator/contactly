@@ -2,7 +2,7 @@
 	import type { DeleteContactSchema } from '$lib/schemas';
 	import { Button, Modal } from 'flowbite-svelte';
 	import type { SuperValidated } from 'sveltekit-superforms';
-	import { superForm } from 'sveltekit-superforms/client';
+	import { superForm } from 'sveltekit-superforms';
 	import toast from 'svelte-french-toast';
 
 	export let data: SuperValidated<DeleteContactSchema>;
