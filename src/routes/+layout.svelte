@@ -11,7 +11,7 @@
 		Dropdown,
 		DropdownItem
 	} from 'flowbite-svelte';
-	import { ChevronDownSolid } from 'flowbite-svelte-icons';
+	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import type { LayoutData } from './$types';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -54,7 +54,7 @@
 		</NavBrand>
 		<div class="flex md:order-2">
 			{#if session}
-				<Button color="light">Account<ChevronDownSolid class="w-3 h-3 ml-2" /></Button>
+				<Button color="light">Account<ChevronDownOutline class="w-3 h-3 ml-2" /></Button>
 				<Dropdown>
 					<div slot="header" class="px-4 py-2">
 						<span class="block truncate text-sm font-medium"> {session.user.email} </span>
