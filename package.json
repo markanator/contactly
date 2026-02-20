@@ -34,7 +34,7 @@
 		"@faker-js/faker": "^10.2.0",
 		"@playwright/test": "^1.57.0",
 		"@sveltejs/adapter-auto": "^7.0.0",
-		"@sveltejs/adapter-vercel": "^6.3.0",
+		"@sveltejs/adapter-vercel": "^6.3.2",
 		"@sveltejs/kit": "^2.52.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"@types/detect-port": "^2.0.0",
