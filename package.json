@@ -66,5 +66,13 @@
 		"vitest": "^4.1.2",
 		"zod": "^4.3.6"
 	},
-	"packageManager": "pnpm@10.30.3"
+	"packageManager": "pnpm@10.30.3",
+	"pnpm": {
+		"overrides": {
+			"cookie@<0.7.0": ">=0.7.0",
+			"minimatch@>=10.0.0 <10.2.3": ">=10.2.3",
+			"rollup@>=4.0.0 <4.59.0": ">=4.59.0",
+			"tar@<=7.5.10": ">=7.5.11"
+		}
+	}
 }
