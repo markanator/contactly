@@ -38,6 +38,7 @@
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/postcss": "^4.3.0",
+		"@tailwindcss/vite": "^4.3.0",
 		"@types/detect-port": "^2.0.0",
 		"@types/node": "^25.9.2",
 		"@types/pg": "^8.20.0",
