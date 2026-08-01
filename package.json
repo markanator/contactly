@@ -50,7 +50,7 @@
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.19.0",
 		"pg": "^8.21.0",
-		"postcss": "^8.5.15",
+		"postcss": "^8.5.18",
 		"postcss-load-config": "^6.0.1",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.1.0",
